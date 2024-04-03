@@ -9,50 +9,40 @@ interface TShirtCardProps {
 
 export function TShirtCard({ product }: TShirtCardProps) {
   return (
-    <Link href={`product/${product.id}`} prefetch={false}>
+    <Link key={product.id} href={`product/${product.id}`} prefetch={false}>
       <div
         key={product.id}
-        className="keen-slider__slide group relative bg-gradient-to-t from-[#1ea483] to-[#7465d4] rounded-xl p-1 cursor-pointer overflow-hidden h-auto"
+        className="cursor-pointer w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 max-w-sm bg-white rounded-lg shadow-md overflow-hidden"
       >
         <Image
-          className="object-contain"
-          alt="Foto de uma camisa"
+          className="object-cover w-full h-48 sm:h-64 bg-gradient-to-t from-[#1ea483] to-[#7465d4]"
           src={product.imageUrl}
-          width={520}
-          height={480}
+          alt="T-shirt"
+          layout="responsive"
+          width={400}
+          height={400}
         />
-
-        <footer className="absolute bottom-1 left-1 right-1 rounded-lg flex flex-col items-center justify-between bg-black bg-opacity-60 p-8 transition-all duration-200 ease-in-out transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
-          <div className="flex flex-col items-center justify-center">
-            <strong className="text-lg text-[#E1E1E6] mb-2">
-              {product.name}
-            </strong>
-            <div className="flex items-center gap-4 mb-4">
-              {product.sizes.map((size) => (
-                <strong key={size} className="text-xs text-[#E1E1E6] border-[1px] border-white rounded-full w-6 h-6 flex items-center justify-center">
-                  {size}
-                </strong>
-              ))}
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="text-[#E1E1E6]">Cores disponíveis:</span>
-              <div className="flex items-center gap-2">
-                {product.colors.map((color) => {
-                  return (
-                    <button
-                      key={color}
-                      style={{ backgroundColor: color }}
-                      className="w-6 h-6 rounded-full"
-                    ></button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-          <span className="text-xl font-bold text-white mt-1">
-            {product.price}
+        <div className="px-6 py-4">
+          <h1 className="font-bold text-lg mb-2">{product.name}</h1>
+          <p className="text-gray-700 text-base">Preço: {product.price}</p>
+        </div>
+        <div className="px-6 pt-4 pb-2">
+          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+            Tamanhos: {product.sizes.join(", ")}
           </span>
-        </footer>
+          <span className="flex items-center gap-3 bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+            Cores:{" "}
+            {product.colors.map((color) => {
+              return (
+                <div
+                  key={color}
+                  style={{ backgroundColor: color }}
+                  className="w-4 h-4 rounded-full"
+                ></div>
+              );
+            })}
+          </span>
+        </div>
       </div>
     </Link>
   );
